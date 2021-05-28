@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "895518879848",
+    "project_id": "unfinished-8d001",
+    "storage_bucket": "unfinished-8d001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895518879848:android:de3220d89ed7dd7a60cbdd",
+        "android_client_info": {
+          "package_name": "com.example.hackon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895518879848-mp0h8726ddea89t6p8f5lq739sjgv274.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcpHbR2yBC0uLb1iasQIud4THu2iy3xqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895518879848-mp0h8726ddea89t6p8f5lq739sjgv274.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
