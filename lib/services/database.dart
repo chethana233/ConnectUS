@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataBaseMethods {
@@ -25,6 +27,16 @@ class DataBaseMethods {
     });
   }
 
+  createGroupChatRoom(String groupId, groupChatRoomMap) {
+    Firestore.instance
+        .collection("GroupChatRooms")
+        .document(groupId)
+        .setData(groupChatRoomMap)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   uploadUserInfo(userMap) {
     Firestore.instance.collection("users").add(userMap);
   }
@@ -39,6 +51,14 @@ class DataBaseMethods {
         .snapshots();
   }
 
+  getGroupConversationMessages(String groupChatRoomId) async{
+    return await Firestore.instance
+        .collection("GroupChatRooms")
+        .document(groupChatRoomId)
+        .collection("chats")
+        .orderBy("time",descending: false)
+        .snapshots();
+  }
 
 
   addConversationMessages(String chatRoomId, messageMap) {
@@ -49,10 +69,57 @@ class DataBaseMethods {
       .add(messageMap);
   }
 
-  getChatRooms(String userName) async{
+  addGroupConversationMessages(String groupChatRoomId, messageMap) {
+    Firestore.instance
+        .collection("GroupChatRooms")
+        .document(groupChatRoomId)
+        .collection("chats")
+        .add(messageMap);
+  }
+
+  getChatRooms(String userName) async {
     return await Firestore.instance.collection("ChatRoom")
         .where("users", arrayContains: userName)
         .snapshots()
     ;
   }
+
+  getMyChatRooms(String userName) async{
+
+  }
+
+
+//  getGroupChatRooms(String userName) async{
+//    QuerySnapshot querySnapshot1;
+//    int index = 0;
+//    return await Firestore.instance.collection("GroupChatRooms").where((querySelector) =>
+//        querySelector.forEach((document) {
+//          document
+//          .where(document., arrayContains: userName)
+//          .snapshots();
+//    }
+//        )
+//
+//    )
+//
+//
+//        .where("participants", arrayContains: userName)
+//        .snapshots()
+//    ;
+//  }
+
+  getAllGroups() async {
+    return await Firestore.instance.collection("GroupChatRooms")
+        .snapshots();
+  }
+
+
+  addParticipantToGroup(String groupChatRoomName, userMap) {
+    Firestore.instance
+        .collection("GroupChatRooms")
+        .document(groupChatRoomName)
+        .collection("participants")
+        .add(userMap);
+  }
+
 }

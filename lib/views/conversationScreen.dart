@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hackon/services/database.dart';
 import 'package:hackon/widgets/widget.dart';
 import 'package:hackon/helper/constants.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:file/file.dart';
 
 class ConversationScreen extends StatefulWidget {
   final String chatRoomId;
@@ -49,6 +51,35 @@ class _ConversationScreenState extends State<ConversationScreen> {
     }
   }
 
+//  howAttachmentBottomSheet(context){
+//    showModalBottomSheet(
+//        context: context,
+//        builder: (BuildContext bc){
+//          return Container(
+//            child:  Wrap(
+//              children: <Widget>[
+//                ListTile(
+//                    leading:  Icon(Icons.image),
+//                    title:  Text('Image'),
+//                    onTap: () => showFilePicker(FileType.image)
+//                ),
+//                ListTile(
+//                    leading:  Icon(Icons.videocam),
+//                    title:  Text('Video'),
+//                    onTap: () => showFilePicker(FileType.video)
+//                ),
+//                ListTile(
+//                  leading:  Icon(Icons.insert_drive_file),
+//                  title:  Text('File'),
+//                  onTap: () => showFilePicker(FileType.any),
+//                ),
+//              ],
+//            ),
+//          );
+//        }
+//    );
+//  }
+
   @override
   void initState() {
     dataBaseMethods
@@ -89,6 +120,23 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         )),
                   ),
                   SizedBox(width: 16,),
+//                  GestureDetector(
+//                    onTap: () => sendMessage(),
+//                    child: Container(
+//                      decoration: BoxDecoration(
+//                          color: Colors.grey,
+//                          gradient: LinearGradient(
+//                              colors: [
+//                                const Color(0x36FFFFFF),
+//                                const Color(0x0FFFFFFF)
+//                              ],
+//                              begin: FractionalOffset.topLeft,
+//                              end: FractionalOffset.bottomRight),
+//                          borderRadius: BorderRadius.circular(40)),
+//                      padding: EdgeInsets.all(12),
+//                      child: Icon(Icons.attach_file, color: Colors.white),
+//                    ),
+//                  ),
                   GestureDetector(
                     onTap: () => sendMessage(),
                     child: Container(

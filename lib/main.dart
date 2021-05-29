@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hackon/helper/authenticate.dart';
 import 'package:hackon/helper/helperFunctions.dart';
 import 'package:hackon/views/chatRooms.dart';
+import 'package:hackon/views/homePage.dart';
 import 'package:hackon/views/search.dart';
 import 'package:hackon/views/signin.dart';
 
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
           scaffoldBackgroundColor: Colors.blueGrey,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: (userIsLoggedIn == true) ? ChatRoom() : Authenticate(),
+        home: (userIsLoggedIn == true) ? HomePage() : Authenticate(),
     );
   }
 }
