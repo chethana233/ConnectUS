@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackon/helper/constants.dart';
 import 'package:hackon/views/groupChatRoom.dart';
+import 'package:hackon/views/jobs.dart';
 import 'package:hackon/views/search.dart';
 import 'package:hackon/widgets/widget.dart';
 import 'package:hackon/views/chatRooms.dart';
@@ -55,12 +56,20 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.blueGrey),
                 height: 150,
-                child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Jobs and Opportunities",
-                      style: simpleTextStyle(),
-                    )),
+                child: GestureDetector(
+                  onTap: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => JobsPage()))
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Jobs and Opportunities",
+                        style: simpleTextStyle(),
+                      )),
+                ),
               ),
               SizedBox(
                 height: 10,

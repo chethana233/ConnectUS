@@ -122,4 +122,10 @@ class DataBaseMethods {
         .add(userMap);
   }
 
+  getAllJobs() async
+  {
+    return await  Firestore.instance
+        .collection("opportunities").snapshots();
+  }
+
 }
