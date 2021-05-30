@@ -60,7 +60,9 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chat"),
+        backgroundColor: Colors.black54,
+        toolbarHeight: 80,
+        title: Text("Direct Message",style: TextStyle(fontFamily: 'Pacifico')),
         actions: [
           GestureDetector(
             onTap: () {
@@ -69,14 +71,23 @@ class _ChatRoomState extends State<ChatRoom> {
                   MaterialPageRoute(builder: (context) => Authenticate()));
             },
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)),
+                padding: EdgeInsets.symmetric(horizontal: 16)),
+                //child: Icon(Icons.exit_to_app)),
           )
         ],
       ),
-      body: chatRoomList(),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/Images/HobbyGroup.jpeg"), fit: BoxFit.cover),
+          ),
+          child: chatRoomList()),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
+
+        backgroundColor: Colors.black54,
+        child: Container(
+          height: 200,
+            width: 200,
+            child: Icon(Icons.search)),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SearchScreen()));
@@ -89,45 +100,58 @@ class _ChatRoomState extends State<ChatRoom> {
 class ChatRoomTile extends StatelessWidget {
   final String userName;
   final String chatRoom;
+
   ChatRoomTile(this.userName, this.chatRoom);
+
   @override
   Widget build(BuildContext context) {
+    print(chatRoom);
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ConversationScreen(chatRoom)));
+                builder: (context) => ConversationScreen(userName)));
       },
       child: Container(
-
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-        child: Row(
+        //color: Colors.grey,
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Column(
           children: [
-            SizedBox(height: 20,),
-            Container(
+            Row(
 
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Text(
-                "${userName.substring(0, 1)}",
-                style: simpleTextStyle(),
-              ),
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  height: 60,
+                  width: 60,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Text(
+                    "${userName.substring(0, 1)}",
+                    style:  TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                  ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  userName,
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                ),
+
+              ],
             ),
-            SizedBox(
-              width: 8,
-            ),
-            Text(
-              userName,
-              style: simpleTextStyle(),
-            )
+            Text("___________________________________",
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20, color: Colors.black26))
           ],
         ),
+
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackon/services/database.dart';
+import 'package:hackon/views/search.dart';
 import 'package:hackon/widgets/widget.dart';
 import 'package:hackon/helper/constants.dart';
 import 'package:file_picker/file_picker.dart';
@@ -95,31 +96,41 @@ class _ConversationScreenState extends State<ConversationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarMain(context),
-        body: Stack(
-          children: [
-            ChatMessageList(),
-            Container(
-              alignment: Alignment.bottomCenter,
-              color: Color(0x54FFFFFF),
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                        controller: message,
-                        style: simpleTextStyle(),
-                        decoration: InputDecoration(
-                          hintText: "Message",
-                          hintStyle: simpleTextStyle(),
-                          border: InputBorder.none,
-                        )),
-                  ),
-                  SizedBox(width: 16,),
+        appBar: AppBar(
+          backgroundColor: Colors.black54,
+          toolbarHeight: 65,
+          title: Text(widget.chatRoomId.toUpperCase()),
+        ),
+        body: Container(
+
+          child: Stack(
+
+            children: [
+              //SizedBox(height: 8,),
+              ChatMessageList(),
+              Container(
+                alignment: Alignment.bottomCenter,
+                color: Color(0x54FFFFFF),
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: Row(
+
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        cursorColor: Colors.white,
+                          controller: message,
+                          style: simpleTextStyle(),
+                          decoration: InputDecoration(
+                            hintText: "Message",
+                            hintStyle: simpleTextStyle(),
+                            border: InputBorder.none,
+                          )),
+                    ),
+                    SizedBox(width: 16,),
 //                  GestureDetector(
 //                    onTap: () => sendMessage(),
 //                    child: Container(
@@ -137,27 +148,28 @@ class _ConversationScreenState extends State<ConversationScreen> {
 //                      child: Icon(Icons.attach_file, color: Colors.white),
 //                    ),
 //                  ),
-                  GestureDetector(
-                    onTap: () => sendMessage(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          gradient: LinearGradient(
-                              colors: [
-                                const Color(0x36FFFFFF),
-                                const Color(0x0FFFFFFF)
-                              ],
-                              begin: FractionalOffset.topLeft,
-                              end: FractionalOffset.bottomRight),
-                          borderRadius: BorderRadius.circular(40)),
-                      padding: EdgeInsets.all(12),
-                      child: Icon(Icons.send, color: Colors.white),
-                    ),
-                  )
-                ],
+                    GestureDetector(
+                      onTap: () => sendMessage(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            gradient: LinearGradient(
+                                colors: [
+                                  const Color(0x36FFFFFF),
+                                  const Color(0x0FFFFFFF)
+                                ],
+                                begin: FractionalOffset.topLeft,
+                                end: FractionalOffset.bottomRight),
+                            borderRadius: BorderRadius.circular(40)),
+                        padding: EdgeInsets.all(12),
+                        child: Icon(Icons.send, color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }
@@ -194,7 +206,7 @@ class MessageTile extends StatelessWidget {
         ),
         child:
             Text(message, style:
-            TextStyle(color: Colors.white, fontSize: 18)),
+            TextStyle(color: Colors.black, fontSize: 18)),
       ),
     );
   }

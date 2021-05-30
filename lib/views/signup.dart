@@ -51,7 +51,11 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarMain(context),
+        appBar: AppBar(
+          toolbarHeight: 80,
+          backgroundColor: Colors.blueGrey,
+          title: Text("Roving Retirees", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontFamily: 'Pacifico', color: Colors.white)),
+        ),
         body: isLoading ? Container(
           child: Center(child: CircularProgressIndicator(
 
@@ -60,6 +64,9 @@ class _SignUpState extends State<SignUp> {
         ):
         SingleChildScrollView(
           child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/Images/signin.jpeg"), fit: BoxFit.cover),
+            ),
             alignment: Alignment.center,
             height: MediaQuery.of(context).size.height - 100,
             padding: EdgeInsets.symmetric(horizontal: 24),

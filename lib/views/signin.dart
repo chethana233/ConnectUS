@@ -60,9 +60,16 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(context),
+      appBar: AppBar(
+        toolbarHeight: 80,
+        backgroundColor: Colors.blueGrey,
+        title: Text("Roving Retirees", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, fontFamily: 'Pacifico',color: Colors.white)),
+      ),
       body: SingleChildScrollView(
         child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/Images/signin.jpeg"), fit: BoxFit.cover),
+          ),
           alignment: Alignment.center,
           height: MediaQuery.of(context).size.height - 100,
           padding: EdgeInsets.symmetric(horizontal: 24),

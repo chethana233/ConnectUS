@@ -55,14 +55,14 @@ class _SearchScreenState extends State<SearchScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(userName, style: simpleTextStyle()),
-              Text(userEmail, style: simpleTextStyle()),
+              Text(userName, style: TextStyle(color: Colors.black,fontSize: 17), ),
+              Text(userEmail, style:TextStyle(color: Colors.black,fontSize: 17),),
             ],
           ),
           Spacer(),
           Container(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.blueGrey,
               borderRadius: BorderRadius.circular(50),
             ),
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -95,8 +95,15 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarMain(context),
+        appBar: AppBar(
+          title: Text("Make New Connections", style: TextStyle(fontFamily: 'Pacifico'),),
+          backgroundColor: Colors.black54,
+          toolbarHeight: 80,
+        ),
         body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/Images/oldMan.jpeg"), fit: BoxFit.cover),
+            ),
             child: Column(
           children: [
             Container(
@@ -108,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Expanded(
                     child: TextField(
                         controller: searchText,
-                        style: simpleTextStyle(),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           hintText: "search username",
                           hintStyle: simpleTextStyle(),
@@ -119,17 +126,17 @@ class _SearchScreenState extends State<SearchScreen> {
                     onTap: () => initiateSearch(),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.grey,
+                          color: Colors.black,
                           gradient: LinearGradient(
                               colors: [
                                 const Color(0x36FFFFFF),
-                                const Color(0x0FFFFFFF)
+                                const Color(0x9FFFFFFF)
                               ],
                               begin: FractionalOffset.topLeft,
                               end: FractionalOffset.bottomRight),
                           borderRadius: BorderRadius.circular(40)),
                       padding: EdgeInsets.all(12),
-                      child: Icon(Icons.search, color: Colors.white),
+                      child: Icon(Icons.search, color: Colors.black),
                     ),
                   )
                 ],

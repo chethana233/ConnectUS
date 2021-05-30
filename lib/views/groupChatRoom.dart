@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackon/helper/authenticate.dart';
 import 'package:hackon/helper/helperFunctions.dart';
@@ -16,6 +17,7 @@ class GroupChatRoom extends StatefulWidget {
 class _GroupChatRoomState extends State<GroupChatRoom> {
   AuthMethods authMethods = new AuthMethods();
   DataBaseMethods dataBaseMethods = new DataBaseMethods();
+  TextEditingController groupName = new TextEditingController();
   Stream groupChatRoomsStream;
 
   @override
@@ -42,9 +44,66 @@ class _GroupChatRoomState extends State<GroupChatRoom> {
         });
   }
 
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      color: Colors.black54,
+      child: Text("CANCEL"),
+      onPressed: () {
+        setState(() {
+          groupName.text = "";
+        });
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = FlatButton(
+      color: Colors.black54,
+      child: Text("OK"),
+      onPressed: () {
+        addNewGroup();
+        setState(() {
+          groupName.text = "";
+        });
+
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      //backgroundColor: Colors.white,
+      title: Text("Yayy! Create your new group now"),
+      content: Container(
+          color: Colors.black54,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+            TextField(
+                controller: groupName,
+                style: simpleTextStyle(),
+                decoration: InputDecoration(
+                  hintText: "Enter a Group Name",
+                  hintStyle: TextStyle(color: Colors.grey),
+                )),
+          ])),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   addNewGroup() {
-    String groupId = "1234 Group";
+    String groupId = groupName.text;
     Map<String, String> groupChatRoomMap = {
       "groupID": groupId,
       "createdBy": Constants.myName
@@ -57,6 +116,7 @@ class _GroupChatRoomState extends State<GroupChatRoom> {
 
   void initState() {
     getUserGroups();
+    getMyGroups();
     setState(() {});
     super.initState();
   }
@@ -78,7 +138,9 @@ class _GroupChatRoomState extends State<GroupChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chat"),
+        backgroundColor: Colors.black54,
+        toolbarHeight: 80,
+        title: Text("Hobby Groups",style: TextStyle(fontFamily: 'Pacifico'),),
         actions: [
           GestureDetector(
             onTap: () {
@@ -86,52 +148,28 @@ class _GroupChatRoomState extends State<GroupChatRoom> {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => Authenticate()));
             },
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)),
+            child: Container(padding: EdgeInsets.symmetric(horizontal: 16)),
+            //child: Icon(Icons.exit_to_app)),
           )
         ],
       ),
-      body: allGroupsList(),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/Images/HobbyGroup.jpeg"),
+                fit: BoxFit.cover),
+          ),
+          child: allGroupsList()),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          backgroundColor: Colors.black54,
+          child: Icon(
+            Icons.add,
+            size: 35,
+          ),
           onPressed: () {
-            addNewGroup();
+            showAlertDialog(context);
           }),
-//           Column(
-//            mainAxisSize: MainAxisSize.min,
-//              children:[
-//            ,
-//            GestureDetector(
-//              onTap: () => addNewGroup(),
-//              child: Container(
-//                alignment: Alignment.bottomCenter,
-//                decoration: BoxDecoration(
-//                    color: Colors.grey,
-//                    gradient: LinearGradient(
-//                        colors: [
-//                          const Color(0x36FFFFFF),
-//                          const Color(0x0FFFFFFF)
-//                        ],
-//                        begin: FractionalOffset.topLeft,
-//                        end: FractionalOffset.bottomRight),
-//                    borderRadius: BorderRadius.circular(40)),
-//                padding: EdgeInsets.all(12),
-//                child: Row(
-//                  mainAxisSize: MainAxisSize.max,
-//                  children: [
-//                    Text("Add new group", style: simpleTextStyle(),),
-//                    Icon(
-//
-//                        Icons.add,
-//                        size: 40,
-//                        color: Colors.white
-//                    ),
-//                  ],
-//                ),
-//              ),
-//            )
-//          ]),
     );
   }
 }
@@ -153,32 +191,48 @@ class ChatRoomTile extends StatelessWidget {
                 builder: (context) => ConversationScreen(chatRoom)));
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-        child: Row(
+        //color: Colors.grey,
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Column(
           children: [
-            SizedBox(
-              height: 20,
+            Row(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  height: 60,
+                  width: 60,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Text(
+                    "${chatRoom.substring(0, 1)}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 20,
+                        color: Colors.black),
+                  ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  chatRoom.toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 20,
+                      color: Colors.black),
+                ),
+              ],
             ),
-            Container(
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Text(
-                "${chatRoom.substring(0,1)}",
-                style: simpleTextStyle(),
-              ),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Text(
-              chatRoom,
-              style: simpleTextStyle(),
-            )
+            Text("___________________________________",
+                style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: 20,
+                    color: Colors.black26))
           ],
         ),
       ),
